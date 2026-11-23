@@ -8,14 +8,11 @@ import NewsSlideshow from './components/NewsSlideshow';
 import TradingTerminal from './components/TradingTerminal';
 import RegistrationForm from './components/RegistrationForm';
 import Footer from './components/Footer';
-import WalletModal from './components/WalletModal';
 import NewsModal from './components/NewsModal';
 import SuccessModal from './components/SuccessModal';
 import Toast from './components/Toast';
 
 export default function App() {
-  const [walletModalOpen, setWalletModalOpen] = useState(false);
-  const [connectedWallet, setConnectedWallet] = useState(null);
   const [selectedNews, setSelectedNews] = useState(null);
   const [registeredData, setRegisteredData] = useState(null);
   const [toasts, setToasts] = useState([]);
@@ -34,16 +31,6 @@ export default function App() {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  const handleWalletConnect = (walletInfo) => {
-    setConnectedWallet(walletInfo);
-    showToast(`Wallet Connected: ${walletInfo.address} (${walletInfo.provider})`, 'success');
-  };
-
-  const handleWalletDisconnect = () => {
-    setConnectedWallet(null);
-    showToast('Wallet disconnected', 'info');
-  };
-
   return (
     <div className="bg-obsidian-950 text-slate-100 min-h-screen relative selection:bg-amber-500 selection:text-black">
       {/* Background Interactive Particles */}
@@ -53,11 +40,7 @@ export default function App() {
       <Toast toasts={toasts} onDismiss={handleDismissToast} />
 
       {/* Responsive Navigation */}
-      <Navbar
-        onOpenWallet={() => setWalletModalOpen(true)}
-        connectedWallet={connectedWallet}
-        onDisconnectWallet={handleWalletDisconnect}
-      />
+      <Navbar />
 
       {/* Main Sections */}
       <main className="relative z-10">
@@ -67,8 +50,6 @@ export default function App() {
         <NewsSlideshow onSelectNews={(news) => setSelectedNews(news)} />
         <TradingTerminal />
         <RegistrationForm
-          connectedWallet={connectedWallet}
-          onOpenWallet={() => setWalletModalOpen(true)}
           onSuccess={(data) => setRegisteredData(data)}
           onShowToast={showToast}
         />
@@ -78,12 +59,6 @@ export default function App() {
       <Footer />
 
       {/* Modals */}
-      <WalletModal
-        isOpen={walletModalOpen}
-        onClose={() => setWalletModalOpen(false)}
-        onConnect={handleWalletConnect}
-      />
-
       <NewsModal
         newsItem={selectedNews}
         onClose={() => setSelectedNews(null)}
@@ -96,4 +71,3 @@ export default function App() {
     </div>
   );
 }
-

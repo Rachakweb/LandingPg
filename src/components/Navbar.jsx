@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Wallet, Send, Menu, X } from 'lucide-react';
+import { Send, Menu, X } from 'lucide-react';
 import { TELEGRAM_INVITE_URL } from '../data/cryptoData';
 
-export default function Navbar({ onOpenWallet, connectedWallet, onDisconnectWallet }) {
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -21,17 +21,6 @@ export default function Navbar({ onOpenWallet, connectedWallet, onDisconnectWall
     { label: 'ProjectX Platform', href: '#platform' },
     { label: 'VIP Register', href: '#register' }
   ];
-
-  const handleWalletClick = (e) => {
-    e.preventDefault();
-    if (connectedWallet) {
-      if (window.confirm(`Connected to ${connectedWallet.address}. Disconnect wallet?`)) {
-        onDisconnectWallet();
-      }
-    } else {
-      onOpenWallet();
-    }
-  };
 
   return (
     <>
@@ -87,28 +76,6 @@ export default function Navbar({ onOpenWallet, connectedWallet, onDisconnectWall
 
           {/* Action CTAs */}
           <div className="hidden lg:flex items-center space-x-3">
-            {/* Wallet Button */}
-            <button
-              onClick={handleWalletClick}
-              className={`px-4 py-2 rounded-full text-xs font-semibold border transition-all duration-300 backdrop-blur-md flex items-center ${
-                connectedWallet
-                  ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-300'
-                  : 'text-slate-300 border-white/15 bg-white/5 hover:bg-white/10 hover:border-amber-400/40 hover:text-amber-300'
-              }`}
-            >
-              {connectedWallet ? (
-                <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="font-mono text-xs">{connectedWallet.address}</span>
-                </div>
-              ) : (
-                <>
-                  <Wallet className="w-4 h-4 mr-2" />
-                  <span>Connect Wallet</span>
-                </>
-              )}
-            </button>
-
             {/* Telegram Join CTA */}
             <a
               href={TELEGRAM_INVITE_URL}
@@ -178,17 +145,6 @@ export default function Navbar({ onOpenWallet, connectedWallet, onDisconnectWall
 
         {/* Mobile Drawer Actions */}
         <div className="space-y-4 pt-6 border-t border-white/10">
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              handleWalletClick({ preventDefault: () => {} });
-            }}
-            className="w-full py-3.5 rounded-xl border border-white/15 bg-white/5 text-slate-200 font-semibold flex items-center justify-center space-x-2 text-sm"
-          >
-            <Wallet className="w-4 h-4" />
-            <span>{connectedWallet ? `Connected: ${connectedWallet.address}` : 'Connect Web3 Wallet'}</span>
-          </button>
-
           <a
             href={TELEGRAM_INVITE_URL}
             target="_blank"

@@ -1,29 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { UserCheck, Wallet, User, Send, Mail, BarChart2, Fingerprint, CheckCircle2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { UserCheck, User, Send, Mail, BarChart2, CheckCircle2 } from 'lucide-react';
 import { leadService } from '../services/api';
 
-export default function RegistrationForm({
-  connectedWallet,
-  onOpenWallet,
-  onSuccess,
-  onShowToast
-}) {
+export default function RegistrationForm({ onSuccess, onShowToast }) {
   const [formData, setFormData] = useState({
     name: '',
     telegram: '',
     email: '',
     experience: 'intermediate',
-    wallet: '',
     termsAgreed: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Auto-fill wallet input if user connects wallet
-  useEffect(() => {
-    if (connectedWallet?.fullAddress) {
-      setFormData((prev) => ({ ...prev, wallet: connectedWallet.fullAddress }));
-    }
-  }, [connectedWallet]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -58,8 +45,7 @@ export default function RegistrationForm({
         name: formData.name.trim(),
         telegram: formattedTg,
         email: formData.email.trim(),
-        experience: formData.experience,
-        wallet: formData.wallet.trim() || 'Not connected'
+        experience: formData.experience
       });
 
       if (response.success) {
@@ -70,7 +56,6 @@ export default function RegistrationForm({
           telegram: '',
           email: '',
           experience: 'intermediate',
-          wallet: connectedWallet?.fullAddress || '',
           termsAgreed: false
         });
       }
@@ -103,29 +88,6 @@ export default function RegistrationForm({
         {/* Card */}
         <div className="glass-panel-gold rounded-3xl p-6 sm:p-10 border border-amber-500/30 shadow-2xl relative">
           
-          {/* Wallet Callout */}
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-white/10 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center space-x-3 text-center sm:text-left">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
-                <Wallet className="w-5 h-5" />
-              </div>
-              <div>
-                <h5 className="text-sm font-bold text-white">Connect Web3 Wallet (Optional)</h5>
-                <p className="text-xs text-slate-400 font-light">
-                  Auto-fill your wallet address for on-chain VIP verification and future token airdrop snapshot.
-                </p>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={onOpenWallet}
-              className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-bold text-amber-300 font-mono transition-all shrink-0"
-            >
-              {connectedWallet ? `Connected: ${connectedWallet.address}` : 'Connect Wallet'}
-            </button>
-          </div>
-
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             
@@ -207,23 +169,6 @@ export default function RegistrationForm({
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold">
-                Web3 Wallet Address (Optional)
-              </label>
-              <div className="relative">
-                <Fingerprint className="w-4 h-4 text-slate-500 absolute left-4 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  name="wallet"
-                  value={formData.wallet}
-                  onChange={handleChange}
-                  placeholder="0x... or Solana Address"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-950/80 border border-white/10 text-sm text-white font-mono placeholder-slate-600 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-colors"
-                />
-              </div>
-            </div>
-
             <div className="flex items-start space-x-3 text-xs text-slate-400">
               <input
                 type="checkbox"
@@ -260,4 +205,3 @@ export default function RegistrationForm({
     </section>
   );
 }
-

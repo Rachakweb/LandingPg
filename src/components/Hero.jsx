@@ -23,12 +23,12 @@ export default function Hero() {
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white tracking-tight leading-[1.08]">
-              Master The Crypto Markets With <span className="text-gold-gradient">ProjectX</span>
+              Master The Meme Coins Market <span className="text-gold-gradient">Master the Solana Memecoins Market</span>
             </h1>
 
             {/* Value Proposition */}
             <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
-              Gain an institutional edge in Bitcoin, Ethereum, and high-velocity altcoins. We deliver verified high-win-rate trading signals, institutional on-chain insider tips, breaking macro news, and exclusive early access to our proprietary upcoming trading terminal.
+              Navigate the high-speed chaos of Solana memecoins with precision. Track real-time trench stats, launchpad volumes, token survival rates, and graduation metrics across Pump.fun and beyond. Spot emerging plays early, monitor live trader activity, and cut through the noise with clean, actionable data. Whether you’re sniping fresh launches, managing risk on the trenches, or scaling winners, this gives you the edge to move faster and smarter in one of crypto’s most volatile arenas. Stay locked in, filter the noise, and turn market chaos into calculated opportunity.
             </p>
 
             {/* CTAs */}
