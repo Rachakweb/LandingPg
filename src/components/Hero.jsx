@@ -23,7 +23,7 @@ export default function Hero() {
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold text-white tracking-tight leading-[1.08]">
-              Master The Meme Coins Market <span className="text-gold-gradient">Master the Solana Memecoins Market</span>
+              Master the <span className="text-gold-gradient">Solana Memecoins</span> Market
             </h1>
 
             {/* Value Proposition */}
